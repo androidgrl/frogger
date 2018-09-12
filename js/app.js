@@ -27,7 +27,7 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
-const Player = function(x=200, y=300) {
+const Player = function(x=200, y=400) {
   this.player = 'images/char-boy.png';
   this.x = x;
   this.y = y;
@@ -43,16 +43,26 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(direction) {
   switch (direction) {
     case 'left':
-      this.x -= 50;
+      if (this.x) {
+        this.x -= 50;
+      }
       break;
     case 'up':
-      this.y -= 50;
+      if (this.y === 50) {
+        this.y = 400;
+      } else {
+        this.y -= 50;
+      }
       break;
     case 'right':
-      this.x += 50;
+      if (this.x < 400) {
+        this.x += 50;
+      }
       break;
     case 'down':
-      this.y += 50;
+      if (this.y < 400) {
+       this.y += 50;
+      }
       break;
   }
 }
