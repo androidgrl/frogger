@@ -40,7 +40,21 @@ Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.player), this.x, this.y);
 }
 
-Player.prototype.handleInput = function() {
+Player.prototype.handleInput = function(direction) {
+  switch (direction) {
+    case 'left':
+      this.x -= 50;
+      break;
+    case 'up':
+      this.y -= 50;
+      break;
+    case 'right':
+      this.x += 50;
+      break;
+    case 'down':
+      this.y += 50;
+      break;
+  }
 }
 
 
