@@ -1,3 +1,4 @@
+//declare enemy function, setting default positions and speed
 const Enemy = function(x=0, y=60, speed=200) {
   this.sprite = 'images/enemy-bug.png';
   this.x = x;
@@ -5,6 +6,8 @@ const Enemy = function(x=0, y=60, speed=200) {
   this.speed = speed;
 };
 
+//if the enemy goes off the screen have it wrap around from the start
+//if the enemy and player collied return player to original position
 Enemy.prototype.update = function(dt) {
   if (this.x < 500) {
     this.x = this.x + (this.speed * dt);
@@ -23,6 +26,7 @@ Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//declare player function and set default positions and image
 const Player = function(x=200, y=400) {
   this.player = 'images/char-boy.png';
   this.x = x;
@@ -36,6 +40,7 @@ Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.player), this.x, this.y);
 }
 
+//prevent the player from leaving the screen
 Player.prototype.handleInput = function(direction) {
   switch (direction) {
     case 'left':
@@ -65,9 +70,9 @@ Player.prototype.handleInput = function(direction) {
 }
 
 const enemy1 = new Enemy();
-const enemy2 = new Enemy(170, 200, 50);
-const enemy3 = new Enemy(300, 140, 100)
-const allEnemies = [enemy2, enemy3];
+const enemy2 = new Enemy(170, 200, 300);
+const enemy3 = new Enemy(300, 140, 150)
+const allEnemies = [enemy1, enemy2, enemy3];
 const player = new Player();
 
 document.addEventListener('keyup', function(e) {
