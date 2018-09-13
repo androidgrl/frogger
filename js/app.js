@@ -5,27 +5,23 @@ const Enemy = function(x=0, y=60, speed=200) {
   this.speed = speed;
 };
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-  // You should multiply any movement by the dt parameter
-  // which will ensure the game runs at the same speed for
-  // all computers.
   if (this.x < 500) {
     this.x = this.x + (this.speed * dt);
   } else {
     this.x = -150;
   }
+  let xCross = (player.x - this.x <= 80) && (player.x - this.x >= -60);
+  let yCross = (player.y - this.y <= 75) && (player.y - this.y >= -55);
+  if (xCross && yCross) {
+    player.x = 200;
+    player.y = 400;
+  }
 };
 
-// Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
 
 const Player = function(x=200, y=400) {
   this.player = 'images/char-boy.png';
@@ -50,6 +46,7 @@ Player.prototype.handleInput = function(direction) {
     case 'up':
       if (this.y === 50) {
         this.y = 400;
+        this.x = 200;
       } else {
         this.y -= 50;
       }
@@ -67,11 +64,10 @@ Player.prototype.handleInput = function(direction) {
   }
 }
 
-
 const enemy1 = new Enemy();
-const enemy2 = new Enemy(150, 180, 300);
-const enemy3 = new Enemy(300, 140, 150)
-const allEnemies = [enemy1, enemy2, enemy3];
+const enemy2 = new Enemy(170, 200, 50);
+const enemy3 = new Enemy(300, 140, 100)
+const allEnemies = [enemy2, enemy3];
 const player = new Player();
 
 document.addEventListener('keyup', function(e) {
